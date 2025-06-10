@@ -3,17 +3,29 @@ from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 
 app = FastAPI()
-from fastapi import FastAPI
 
+# CORS instellen zodat frontend toegang krijgt tot deze API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  # of specifieker: ["http://localhost:3000", "https://meldkamer-frontend.vercel.app"]
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-@app.get("/api/meldingen")
+# Cache de data bij opstarten (optioneel)
+DATA_PATH = "m2m_meldingen_logisch.csv"
+
+@app.get("/")
+def read_root():
+    return {"message": "Backend API is live."}
+
+@app.get("/meldingen")
 def get_meldingen():
-    df = pd.read_csv("m2m_meldingen_logisch.csv")
-    return df.to_dict(orient="records")
+    try:
+        df = pd.read_csv(DATA_PATH)
+        return df.to_dict(orient="records")
+    except FileNotFoundError:
+        return {"error": f"Bestand niet gevonden op pad: {DATA_PATH}"}
+    except Exception as e:
+        return {"error": str(e)}
