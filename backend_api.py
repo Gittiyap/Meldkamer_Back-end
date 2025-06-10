@@ -3,6 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 
 app = FastAPI()
+@app.get("/meldingen")
+def get_meldingen():
+    try:
+        df = pd.read_csv("m2m_meldingen_logisch.csv")
+        print("Kolomnamen:", df.columns.tolist())  # 👈 tijdelijk
+        return df.to_dict(orient="records")
+    except Exception as e:
+        return {"error": str(e)}
 
 # CORS instellen zodat frontend toegang krijgt tot deze API
 app.add_middleware(
