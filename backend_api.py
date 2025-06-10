@@ -5,12 +5,6 @@ import pandas as pd
 app = FastAPI()
 from fastapi import FastAPI
 
-app = FastAPI()
-
-@app.get("/")
-def read_root():
-    return {"message": "Backend API is live!"}
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -23,3 +17,7 @@ app.add_middleware(
 def get_meldingen():
     df = pd.read_csv("m2m_meldingen_logisch.csv")
     return df.to_dict(orient="records")
+    
+    @app.get("/")
+def read_root():
+    return {"message": "Backend API is live!"}
