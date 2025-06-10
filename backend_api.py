@@ -3,6 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 
 app = FastAPI()
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Backend API is live!"}
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
