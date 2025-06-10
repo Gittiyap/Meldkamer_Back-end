@@ -17,7 +17,3 @@ app.add_middleware(
 def get_meldingen():
     df = pd.read_csv("m2m_meldingen_logisch.csv")
     return df.to_dict(orient="records")
-    
-    @app.get("/")
-def read_root():
-    return {"message": "Backend API is live!"}
