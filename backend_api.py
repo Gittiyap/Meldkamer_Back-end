@@ -6,7 +6,7 @@ app = FastAPI()
 @app.get("/meldingen")
 def get_meldingen():
     try:
-        df = pd.read_csv("m2m_meldingen_logisch.csv")
+        df = pd.read_csv("m2m_meldingen_logisch.csv", sep=",", encoding="utf-8")
         print("Kolomnamen:", df.columns.tolist())  # 👈 tijdelijk
         return df.to_dict(orient="records")
     except Exception as e:
