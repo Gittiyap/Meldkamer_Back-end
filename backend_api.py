@@ -9,12 +9,9 @@ import pandas as pd
 app = FastAPI()
 @app.get("/meldingen")
 def get_meldingen():
-    try:
-        df = pd.read_csv("m2m_meldingen_logisch.csv", sep=",", encoding="utf-8")
-        print("Kolomnamen:", df.columns.tolist())  # 👈 tijdelijk
-        return df.to_dict(orient="records")
-    except Exception as e:
-        return {"error": str(e)}
+    df = pd.read_csv("m2m_meldingen_logisch.csv")
+    return df.to_dict(orient="records")
+def get_meldingen():
 
 # CORS instellen zodat frontend toegang krijgt tot deze API
 app.add_middleware(
