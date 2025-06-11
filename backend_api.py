@@ -11,8 +11,6 @@ app = FastAPI()
 def get_meldingen():
     df = pd.read_csv("m2m_meldingen_logisch.csv")
     return df.to_dict(orient="records")
-def get_meldingen():
-
 # CORS instellen zodat frontend toegang krijgt tot deze API
 app.add_middleware(
     CORSMiddleware,
