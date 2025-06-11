@@ -1,4 +1,8 @@
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
+@app.head("/")
+def root_head():
+    return JSONResponse(content={"message": "Backend API is live."})
 from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 
